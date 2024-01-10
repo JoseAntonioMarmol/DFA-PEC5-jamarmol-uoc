@@ -1,0 +1,71 @@
+<div class="container">
+  <section>
+    <h1>Home</h1>
+  </section>
+  <section class="spinner-container">
+    <div *ngIf="characters.length === 0" class="spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  </section>
+  <section class="buttons-container">
+    <div class="view-switch">
+      <mat-button-toggle-group
+        name="viewMode"
+        aria-label="View Mode"
+        [(value)]="viewMode"
+      >
+        <mat-button-toggle value="table" aria-label="View type table"
+          ><mat-icon>grid_view</mat-icon></mat-button-toggle
+        >
+        <mat-button-toggle value="card" aria-label="View type card"
+          ><mat-icon>view_list</mat-icon></mat-button-toggle
+        >
+      </mat-button-toggle-group>
+    </div>
+  </section>
+  <section *ngIf="characters.length !== 0">
+    <div>
+      <!-- Table View1 -->
+      <div *ngIf="viewMode === 'table'" class="table">
+        <mat-grid-list cols="4" rowHeight="2:1" @fadeInOut>
+          <a
+            *ngFor="let character of characters"
+            [routerLink]="['/character', character.id]"
+          >
+            <mat-grid-tile class="character-list"
+              ><div
+                class="bg-img"
+                [style.backgroundImage]="'url(' + character.image + ')'"
+              >
+                {{ character.name | titlecase }}
+              </div></mat-grid-tile
+            >
+          </a>
+        </mat-grid-list>
+      </div>
+
+      <!-- Card View -->
+      <div *ngIf="viewMode === 'card'" class="card">
+        <div *ngFor="let character of characters">
+          <a class="my-4" [routerLink]="['/character', character.id]">
+            <mat-card class="mat-elevation-z4" @fadeInOut>
+              <mat-card-content class="character-list">
+                <mat-card-header>
+                  <mat-card-title>{{ character.name }} </mat-card-title>
+                </mat-card-header>
+                <img
+                  mat-card-md-image
+                  src="{{ character.image }}"
+                  alt="character.name"
+                />
+
+                <p>Gender: {{ character.gender }}</p>
+                <p>Status: {{ character.status }}</p>
+              </mat-card-content>
+            </mat-card>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
