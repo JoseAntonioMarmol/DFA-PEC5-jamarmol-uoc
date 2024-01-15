@@ -1,13 +1,13 @@
 <div class="container mt-6">
   <section>
-    <h1>Home</h1>
+    <h1 class="text-center">Home</h1>
   </section>
-  <section class="cont spinner-container">
+  <section class="d-flex justify-content-center">
     <div *ngIf="characters.length === 0" class="spinner">
       <mat-spinner></mat-spinner>
     </div>
   </section>
-  <section class="cont buttons-container">
+  <section class="d-flex justify-content-center">
     <div class="view-switch">
       <mat-button-toggle-group
         name="viewMode"
@@ -46,10 +46,10 @@
     <!-- Card View -->
 
     <div *ngIf="viewMode === 'card'" class="card">
-      <div>
+      <div class="row">
         <a
           *ngFor="let character of characters"
-          class="my-4"
+          class="my-4 col-md-4"
           [routerLink]="['/character', character.id]"
         >
           <mat-card class="character-card" @fadeInOut>
